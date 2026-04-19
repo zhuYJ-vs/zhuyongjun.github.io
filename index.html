@@ -32,6 +32,7 @@
       .container {
         max-width: 600px;
         margin: 0 auto;
+        width: 100%;
       }
 
       /* 卡片样式 */
@@ -95,17 +96,21 @@
         gap: 12px;
         margin-bottom: 18px;
         align-items: flex-start;
+        flex-wrap: wrap;
       }
+
       .time-icon {
-        min-width: 68px;
+        min-width: 90px;
         background: #eef2e9;
         border-radius: 40px;
         text-align: center;
-        padding: 6px 0;
+        padding: 6px 8px;
         font-weight: 600;
         font-size: 0.75rem;
         color: #2b6b5e;
+        flex-shrink: 0;
       }
+
       .timeline-desc {
         flex: 1;
         background: #fefef7;
@@ -114,32 +119,37 @@
         font-size: 0.88rem;
         line-height: 1.4;
         border: 1px solid #e2e8e6;
+        word-break: break-word;
       }
 
-      /* 景点网格 */
+      /* 景点网格 - 自适应修复 */
       .spot-grid {
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
         margin: 18px 0 12px;
       }
+
       .spot-card {
-        flex: 1;
-        min-width: 110px;
+        flex: 1 1 110px;
+        min-width: 100px;
         background: #fffef7;
         border-radius: 28px;
         padding: 10px 6px;
         text-align: center;
         border: 1px solid #e2e7e2;
       }
+
       .spot-emoji {
         font-size: 2rem;
         margin-bottom: 6px;
       }
+
       .spot-name {
         font-weight: 600;
         font-size: 0.85rem;
       }
+
       .spot-tip {
         font-size: 0.7rem;
         color: #7b8e84;
@@ -152,6 +162,7 @@
         gap: 10px;
         margin: 16px 0 12px;
       }
+
       .food-item {
         background: #fff6e8;
         border-radius: 60px;
@@ -189,6 +200,8 @@
         border-bottom: 1px dashed #dde3e0;
         padding: 10px 0;
         font-size: 0.85rem;
+        flex-wrap: wrap;
+        gap: 6px;
       }
 
       .img-placeholder {
@@ -202,11 +215,34 @@
         justify-content: center;
         gap: 12px;
       }
+
       .img-placeholder span {
         background: #cddfd6;
         padding: 6px 14px;
         border-radius: 40px;
         font-size: 0.7rem;
+      }
+
+      /* 实际图片响应式修正 - 防止溢出 */
+      .img-placeholder img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* 针对封面和内部flex图片布局强制自适应 */
+      .card .img-placeholder {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .card .img-placeholder img {
+        width: calc(50% - 10px);
+        min-width: 130px;
+        flex: 1 1 auto;
+        border-radius: 24px;
       }
 
       hr {
@@ -222,11 +258,73 @@
         color: #8aa2a0;
         margin-top: 20px;
       }
+
+      /* 手机端额外修正 */
+      @media (max-width: 560px) {
+        body {
+          padding: 12px 10px 40px;
+        }
+        .card-header {
+          padding: 14px 16px 6px 16px;
+        }
+        .card-content {
+          padding: 14px 16px 20px;
+        }
+        .timeline-item {
+          gap: 8px;
+        }
+        .time-icon {
+          min-width: 75px;
+          font-size: 0.7rem;
+        }
+        .timeline-desc {
+          font-size: 0.82rem;
+        }
+        .spot-card {
+          min-width: 100px;
+          flex: 1 1 auto;
+        }
+        .info-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+        .sub {
+          margin-left: 0;
+        }
+        .card-header {
+          flex-wrap: wrap;
+        }
+        .day-badge + .sub {
+          margin-left: auto;
+        }
+        /* 封面标题适应 */
+        h1 {
+          font-size: 1.6rem !important;
+        }
+        .img-placeholder img {
+          width: 100% !important;
+          max-width: 100%;
+        }
+      }
+
+      /* 极小屏 */
+      @media (max-width: 440px) {
+        .spot-card {
+          min-width: 85px;
+        }
+        .spot-name {
+          font-size: 0.75rem;
+        }
+        .time-icon {
+          min-width: 68px;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- 封面 -->
+      <!-- 封面卡片 -->
       <div class="card" style="background: #e3f0ea">
         <div class="card-content" style="text-align: center">
           <div style="font-size: 3rem">🏝️✨</div>
@@ -249,7 +347,7 @@
         </div>
       </div>
 
-      <!-- 行程总览 -->
+      <!-- 行程总览卡片 -->
       <div class="card">
         <div class="card-header">
           <span class="day-badge">📋 行程总览</span>
@@ -275,7 +373,7 @@
         </div>
       </div>
 
-      <!-- DAY 1 : 宁波老外滩 19:40抵达 -->
+      <!-- DAY 1 : 宁波老外滩 -->
       <div class="card">
         <div class="card-header">
           <span class="day-badge">🌆 DAY 1 · 5.3</span>
@@ -312,6 +410,7 @@
             </div>
           </div>
 
+          <!-- 图片占位模拟图片展示（自适应网格） -->
           <div
             class="img-placeholder"
             style="
@@ -322,23 +421,23 @@
             "
           >
             <img
-              src="img/宁波酒店.jpg"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23b8d9cd'/%3E%3Ctext x='20' y='80' fill='%2337625b' font-size='12'%3E🏛️ 天主教堂%3C/text%3E%3C/svg%3E"
               alt="天主教堂"
               style="width: 48%; border-radius: 24px"
             />
             <img
-              src="img/宁波老外路线.jpg"
-              alt="天主教堂"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23c4e0d4'/%3E%3Ctext x='20' y='80' fill='%2337625b' font-size='12'%3E🌉 老外滩夜景%3C/text%3E%3C/svg%3E"
+              alt="宁波老外路线"
               style="width: 48%; border-radius: 24px"
             />
             <img
-              src="img/夜宁波1.jpg"
-              alt="天主教堂"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23afcfc0'/%3E%3Ctext x='20' y='80' fill='%2337625b' font-size='12'%3E🌃 三江口夜色%3C/text%3E%3C/svg%3E"
+              alt="夜宁波1"
               style="width: 48%; border-radius: 24px"
             />
             <img
-              src="img/夜宁波2.jpg"
-              alt="天主教堂"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%239fc9b8'/%3E%3Ctext x='20' y='80' fill='%2337625b' font-size='12'%3E🍸 酒吧微醺%3C/text%3E%3C/svg%3E"
+              alt="夜宁波2"
               style="width: 48%; border-radius: 24px"
             />
           </div>
@@ -414,6 +513,7 @@
               晚餐：阿军民宿海鲜/海胆炒饭/虎头鱼豆腐汤，吹海风
             </div>
           </div>
+
           <div class="spot-grid">
             <div class="spot-card">
               <div class="spot-emoji">🏛️🌊</div>
@@ -536,7 +636,7 @@
         </div>
       </div>
 
-      <!-- DAY 4 : 返程 庙子湖→沈家门→宁波→杭州 -->
+      <!-- DAY 4 : 返程 -->
       <div class="card">
         <div class="card-header">
           <span class="day-badge">🚢 DAY 4 · 5.6</span>
@@ -597,8 +697,8 @@
       <!-- 船票 & 干货卡片 -->
       <div class="card">
         <div class="card-header">
-          <span class="day-badge">🎫 船票 · 核心干货</span>
-          <span class="sub">必须收藏</span>
+          <span class="day-badge">🎫 船票 · 核心干货</span
+          ><span class="sub">必须收藏</span>
         </div>
         <div class="card-content">
           <div class="info-row">
@@ -639,11 +739,11 @@
         </div>
       </div>
 
-      <!-- 岛屿精髓 + 美食贴士 -->
+      <!-- 岛屿精髓 & 美食贴士 -->
       <div class="card">
         <div class="card-header">
-          <span class="day-badge">🏝️ 岛屿精髓 & 美食</span>
-          <span class="sub">可以还价哟</span>
+          <span class="day-badge">🏝️ 岛屿精髓 & 美食</span
+          ><span class="sub">可以还价哟</span>
         </div>
         <div class="card-content">
           <div class="spot-grid">
