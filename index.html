@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover"
+    />
+    <title>东极岛4天3晚休闲游 · 文艺海岛攻略</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f4f7fc;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Helvetica,
+          "Noto Sans",
+          sans-serif;
+        color: #1e2a3e;
+        padding: 16px 12px 40px;
+      }
+
+      /* 容器 */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* 手绘风格图标/装饰 */
+      .icon-em {
+        display: inline-block;
+        font-style: normal;
+        font-weight: normal;
+      }
+
+      /* 卡片样式 */
+      .card {
+        background: rgba(255, 255, 240, 0.98);
+        border-radius: 32px;
+        box-shadow:
+          0 8px 20px rgba(0, 0, 0, 0.05),
+          0 2px 4px rgba(0, 0, 0, 0.02);
+        margin-bottom: 24px;
+        overflow: hidden;
+        backdrop-filter: blur(0px);
+        transition: all 0.2s ease;
+        border: 1px solid #e9f0f0;
+      }
+
+      .card-header {
+        padding: 18px 20px 8px 20px;
+        background: #ffffffcc;
+        border-bottom: 2px dashed #cbdde6;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .day-badge {
+        background: #2c6e6b;
+        color: white;
+        border-radius: 60px;
+        padding: 6px 16px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .day-title {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #1e4a4b;
+        letter-spacing: -0.3px;
+      }
+
+      .sub {
+        color: #547a6e;
+        font-size: 0.8rem;
+        margin-left: auto;
+        background: #eef3f0;
+        padding: 4px 12px;
+        border-radius: 40px;
+      }
+
+      .card-content {
+        padding: 16px 20px 24px;
+      }
+
+      /* 时间线 */
+      .timeline-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 18px;
+        align-items: flex-start;
+      }
+      .time-icon {
+        min-width: 52px;
+        background: #eef2e9;
+        border-radius: 40px;
+        text-align: center;
+        padding: 6px 0;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: #2b6b5e;
+      }
+      .timeline-desc {
+        flex: 1;
+        background: #fefef7;
+        padding: 8px 14px;
+        border-radius: 24px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        border: 1px solid #e2e8e6;
+      }
+
+      /* 景点网格 */
+      .spot-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin: 16px 0 12px;
+      }
+      .spot-card {
+        flex: 1;
+        min-width: 130px;
+        background: #fffef7;
+        border-radius: 28px;
+        padding: 12px 8px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        border: 1px solid #e2e7e2;
+      }
+      .spot-emoji {
+        font-size: 2.3rem;
+        margin-bottom: 6px;
+      }
+      .spot-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      .spot-tip {
+        font-size: 0.7rem;
+        color: #7b8e84;
+        margin-top: 5px;
+      }
+
+      /* 美食推荐 */
+      .food-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 15px 0 8px;
+      }
+      .food-item {
+        background: #fff6e8;
+        border-radius: 60px;
+        padding: 6px 15px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 0.5px solid #ffdfb3;
+      }
+
+      /* 信息高亮 */
+      .highlight {
+        background: #eef3f0;
+        border-left: 5px solid #2c6e6b;
+        padding: 12px 16px;
+        border-radius: 20px;
+        margin: 14px 0;
+        font-size: 0.85rem;
+      }
+
+      /* 按钮标签 */
+      .chip {
+        background: #eef2f5;
+        border-radius: 30px;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* 表格样式简化 */
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed #dde3e0;
+        padding: 10px 0;
+        font-size: 0.85rem;
+      }
+
+      /* 图片占位 - 方便替换真实图片 */
+      .img-placeholder {
+        background: #d9e3df;
+        border-radius: 28px;
+        padding: 12px;
+        text-align: center;
+        margin: 12px 0;
+        font-size: 0.75rem;
+        color: #2c5a55;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        background-image: linear-gradient(145deg, #e9f0ec, #dae6e0);
+      }
+      .img-placeholder span {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 5px 12px;
+        border-radius: 40px;
+      }
+      .mock-img-icon {
+        font-size: 1.4rem;
+      }
+
+      hr {
+        margin: 20px 0;
+        border: 0;
+        height: 2px;
+        background: linear-gradient(to right, #cbdcd5, transparent);
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.7rem;
+        color: #8aa2a0;
+        margin-top: 30px;
+      }
+
+      /* 手绘小元素 */
+      .wave {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2335796e" width="18px" height="18px"><path d="M2 12c2.5-3 4.5-3 7 0s4.5 3 7 0 4.5-3 7 0"/></svg>')
+          repeat-x;
+        height: 10px;
+        opacity: 0.4;
+      }
+      .title-icon {
+        font-size: 1.6rem;
+        margin-right: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 封面 & 总览 -->
+      <div class="card" style="background: #e3f0ea">
+        <div class="card-content" style="text-align: center">
+          <div style="font-size: 3rem">🏝️✨</div>
+          <h1 style="font-size: 1.8rem; margin: 8px 0">东极岛·4天3晚</h1>
+          <p style="color: #37635b">慢摇海岛 | 百年洋房 | 第一缕日出</p>
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              gap: 12px;
+              margin-top: 16px;
+            "
+          >
+            <span class="chip">🎒 双肩包漫行</span>
+            <span class="chip">📸 手绘感攻略</span>
+            <span class="chip">🧘 每日仅1-2核心活动</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 行程总览卡片 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">📋 行程总览</span>
+          <span class="sub">休闲指数 ★★★★★</span>
+        </div>
+        <div class="card-content">
+          <div class="info-row">
+            <span>🗓️ 5.3 宁波</span><span>🏨 宁波站附近</span
+            ><span>🌙 老外滩之夜</span>
+          </div>
+          <div class="info-row">
+            <span>🗓️ 5.4 东福山岛</span><span>⛵ 青浜岛精华游</span
+            ><span>✨ 入住东福山</span>
+          </div>
+          <div class="info-row">
+            <span>🗓️ 5.5 庙子湖岛</span><span>🌅 东福山日出 → 环岛徒步</span
+            ><span>🏮 庙子湖灯塔日落</span>
+          </div>
+          <div class="info-row">
+            <span>🗓️ 5.6 返程</span><span>🎁 倒陡街伴手礼 → 杭州</span
+            ><span>🚄 高铁归家</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= DAY 1 ========================= -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">🌆 DAY 1 · 5.3</span>
+          <span class="sub">宁波老外滩 · 百年浪漫</span>
+        </div>
+        <div class="card-content">
+          <div class="timeline-item">
+            <div class="time-icon">🚄 15-17点</div>
+            <div class="timeline-desc">
+              杭州东→宁波站 (高铁1h) ，入住酒店，稍作休憩。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🌇 17:00</div>
+            <div class="timeline-desc">
+              漫步老外滩建筑群：天主教堂、巡捕房旧址、宏昌源号，夕阳斜照民国洋房。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🍢 18:30</div>
+            <div class="timeline-desc">
+              江边小吃摊&中马路Bar，吹江风、吃年糕烤串，等待亮灯时刻。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🌃 19:30</div>
+            <div class="timeline-desc">
+              三江口灯光秀 / 可选三江夜游游船，微醺清吧感受烟火气。
+            </div>
+          </div>
+
+          <!-- 图片占位，方便插入实拍 -->
+          <div class="img-placeholder">
+            <span class="mock-img-icon">📸 老外滩夜景插入点</span>
+            <span>🏛️ 天主教堂亮灯｜江边酒吧街</span>
+            <span style="background: #cbdcd5">👇 替换src即可</span>
+          </div>
+
+          <div class="food-list">
+            <div class="food-item">🍜 缸鸭狗汤圆</div>
+            <div class="food-item">🦀 红膏炝蟹</div>
+            <div class="food-item">🍢 油赞子/年糕</div>
+            <div class="food-item">🍺 江边精酿</div>
+          </div>
+          <div class="highlight">
+            💡 小贴士：周末有文创市集，夜景18:30-22:00绝美，着浅色衣裙更出片。
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= DAY 2 ========================= -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">⛴️ DAY 2 · 5.4</span>
+          <span class="sub">宁波→朱家尖→青浜→东福山</span>
+        </div>
+        <div class="card-content">
+          <div class="timeline-item">
+            <div class="time-icon">🚌 7:00-9:00</div>
+            <div class="timeline-desc">
+              宁波汽车南站→朱家尖蜈蚣峙码头（宁波公运专线）
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🛳️ 10:00-12:00</div>
+            <div class="timeline-desc">
+              乘船至庙子湖（提前3天抢票，选下舱防晕船）
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🏝️ 12:30-15:30</div>
+            <div class="timeline-desc">
+              青浜岛精华游：海上布达拉宫、小孩洞、无人村，礁石赶海。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🚤 16:00-16:30</div>
+            <div class="timeline-desc">
+              青浜→东福山 (现金30元)，入住阿军民宿，晚餐海鲜大餐。
+            </div>
+          </div>
+
+          <div class="spot-grid">
+            <div class="spot-card">
+              <div class="spot-emoji">🏛️🌊</div>
+              <div class="spot-name">海上布达拉宫</div>
+              <div class="spot-tip">广角拍摄超震撼</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">🧸🏚️</div>
+              <div class="spot-name">小孩洞·二战遗址</div>
+              <div class="spot-tip">礁石路防滑鞋</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">🏚️🍃</div>
+              <div class="spot-name">无人村废墟</div>
+              <div class="spot-tip">文艺胶片风</div>
+            </div>
+          </div>
+
+          <div class="food-list">
+            <div class="food-item">🍜 阿军海鲜面</div>
+            <div class="food-item">🐟 虎头鱼豆腐汤</div>
+            <div class="food-item">🦪 海胆炒饭</div>
+            <div class="food-item">🐚 佛手螺</div>
+          </div>
+          <div class="img-placeholder">
+            <span>📷 青浜岛小孩洞｜无人村石屋群（可替换实拍图）</span>
+            <span>🏡 东福山阿军民宿餐厅</span>
+          </div>
+          <div class="highlight">
+            ⚠️
+            岛际船票只收现金！带200-300元现金；青浜岛徒步约2-3h，穿防滑运动鞋。
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= DAY 3 ========================= -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">🌅 DAY 3 · 5.5</span>
+          <span class="sub">东福山第一缕曙光 → 庙子湖环岛</span>
+        </div>
+        <div class="card-content">
+          <div class="timeline-item">
+            <div class="time-icon">⏰ 4:15</div>
+            <div class="timeline-desc">
+              新世纪第一缕曙光照射点，占据最佳机位，迎接中国最早日出🌅
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🥾 5:30-9:00</div>
+            <div class="timeline-desc">
+              逆时针环岛精华段：大树湾石屋群→象鼻峰，云雾与悬崖海景（可半程折返）
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🛥️ 12:00-12:30</div>
+            <div class="timeline-desc">
+              东福山→庙子湖（现金30元）入住码头附近民宿。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🚌 14:00-17:00</div>
+            <div class="timeline-desc">
+              庙子湖观光车环岛（88元/人）：后会无期取景地、财伯公像、东极亭、红白灯塔。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🌅 18:00</div>
+            <div class="timeline-desc">
+              灯塔日落+倒陡街漫步，买渔民画明信片，码头海鲜排挡晚餐。
+            </div>
+          </div>
+
+          <div class="spot-grid">
+            <div class="spot-card">
+              <div class="spot-emoji">🎬🏠</div>
+              <div class="spot-name">后会无期取景地</div>
+              <div class="spot-tip">彩虹楼梯打卡</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">🗽🌊</div>
+              <div class="spot-name">财伯公塑像</div>
+              <div class="spot-tip">俯瞰全景</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">🗼❤️</div>
+              <div class="spot-name">网红红白灯塔</div>
+              <div class="spot-tip">日落时分绝美</div>
+            </div>
+          </div>
+          <div class="food-list">
+            <div class="food-item">🦞 码头大排档</div>
+            <div class="food-item">🍝 极岛面栈炒年糕</div>
+            <div class="food-item">☕ 倒陡街咖啡</div>
+            <div class="food-item">🎣 海钓加工</div>
+          </div>
+          <div class="img-placeholder">
+            <span>🏝️ 东福山曙光观测台</span>
+            <span>🗼 庙子湖灯塔日落机位</span>
+            <span>🎬 后会无期小屋</span>
+          </div>
+          <div class="highlight">
+            📸 拍照建议：日出带三脚架，徒步带足水；环岛结伴而行，防晒+防蚊。
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= DAY 4 ========================= -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">🚢 DAY 4 · 5.6</span>
+          <span class="sub">返程 · 带一片海回家</span>
+        </div>
+        <div class="card-content">
+          <div class="timeline-item">
+            <div class="time-icon">😴 8:00-10:00</div>
+            <div class="timeline-desc">
+              自然醒，倒陡街买伴手礼（鱼干、淡菜干、渔民画），喝杯海风咖啡。
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">⛴️ 11:00-13:00</div>
+            <div class="timeline-desc">
+              庙子湖→朱家尖 (提前1天购票，建议11点班次)
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🚌 14:00-16:00</div>
+            <div class="timeline-desc">朱家尖→宁波汽车南站 (大巴2h)</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-icon">🚄 17:30-18:30</div>
+            <div class="timeline-desc">宁波站→杭州东，回到温馨的家✨</div>
+          </div>
+          <div class="img-placeholder">
+            <span>🎁 倒陡街文艺小店</span>
+            <span>🐟 东极特产鱼干虾米</span>
+          </div>
+          <div class="highlight">
+            💡
+            返程记得购买庙子湖→朱家尖船票，最晚大巴衔接建议17:00前从朱家尖发车。
+          </div>
+        </div>
+      </div>
+
+      <!-- 实用信息 船票+预算+清单 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">🎫 船票 & 干货</span>
+          <span class="sub">必须收藏</span>
+        </div>
+        <div class="card-content">
+          <div class="info-row">
+            <span>🚢 朱家尖→庙子湖</span><span>“舟山海星轮船”</span
+            ><span>提前3天05:00抢</span>
+          </div>
+          <div class="info-row">
+            <span>🔄 岛间船票</span><span>庙子湖⇄青浜/东福山</span
+            ><span>只收现金(20-30元)</span>
+          </div>
+          <div class="info-row">
+            <span>🚌 宁波→朱家尖专线</span><span>“宁波公运”小程序</span
+            ><span>约2小时直达码头</span>
+          </div>
+          <div class="info-row">
+            <span>💰 总预算参考</span><span>1600-2500元/人</span
+            ><span>不含购物</span>
+          </div>
+          <hr />
+          <div style="font-weight: 600; margin: 10px 0 8px">
+            ✅ 出行必备清单
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <span class="chip">🆔 身份证</span>
+            <span class="chip">💰 现金200-300</span>
+            <span class="chip">💊 晕船药</span>
+            <span class="chip">🧴 高倍防晒/墨镜</span>
+            <span class="chip">🦟 驱蚊液</span>
+            <span class="chip">🔋 充电宝</span>
+            <span class="chip">👟 防滑运动鞋</span>
+            <span class="chip">🧥 薄外套</span>
+            <span class="chip">📷 三脚架/防水袋</span>
+          </div>
+          <div class="highlight">
+            📌
+            东福山民宿推荐：阿军民宿（含早餐、近曙光点、码头接送）；庙子湖住码头附近方便返程。
+          </div>
+        </div>
+      </div>
+
+      <!-- 各岛核心体验与美食图片占位 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">🏝️ 岛屿精髓</span>
+          <span class="sub">一图看懂</span>
+        </div>
+        <div class="card-content">
+          <div class="spot-grid">
+            <div class="spot-card">
+              <div class="spot-emoji">🌉🏛️</div>
+              <div class="spot-name">宁波老外滩</div>
+              <div class="spot-tip">百年洋房·江风夜游</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">⛰️🏚️</div>
+              <div class="spot-name">青浜岛</div>
+              <div class="spot-tip">海上布达拉宫·无人村</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">🌅🗿</div>
+              <div class="spot-name">东福山岛</div>
+              <div class="spot-tip">第一缕曙光·环岛石屋</div>
+            </div>
+            <div class="spot-card">
+              <div class="spot-emoji">🎬🗼</div>
+              <div class="spot-name">庙子湖岛</div>
+              <div class="spot-tip">后会无期·灯塔日落</div>
+            </div>
+          </div>
+          <div class="img-placeholder">
+            <span>🍜 东福山海胆蒸蛋</span>
+            <span>🍲 庙子湖海鲜大排档</span>
+            <span>🍡 宁波老外滩油赞子</span>
+          </div>
+          <div class="highlight">
+            ✨ 5月荧光海概率较低，但天气晴好时星空与蓝眼泪可偶遇！带上期待～
+          </div>
+        </div>
+      </div>
+
+      <!-- 餐饮贴士与最后提醒 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="day-badge">🍴 美食与TIPS</span>
+          <span class="sub">可以还价！</span>
+        </div>
+        <div class="card-content">
+          <div class="info-row">
+            <span>🐟 东福山实惠</span><span>海胆蒸蛋15元/个</span
+            ><span>青蟹50元/2只</span>
+          </div>
+          <div class="info-row">
+            <span>🦐 庙子湖特色</span><span>海鲜面35元/碗</span
+            ><span>加工费15-20元</span>
+          </div>
+          <div class="info-row">
+            <span>🌿 禁渔期提醒</span><span>5-9月海鲜较少</span
+            ><span>海钓+加工更划算</span>
+          </div>
+          <div class="highlight">
+            ⚠️
+            停航风险：关注“舟山海星轮船”“东极海运”公众号，大雾大风可能停航，建议预留1天机动。行李尽量背包，岛上多石阶。
+          </div>
+          <div
+            style="
+              margin-top: 12px;
+              font-size: 0.75rem;
+              text-align: center;
+              color: #5c8b7e;
+            "
+          >
+            ✏️ 攻略支持一键替换图片 · 移动端适配 · 手绘风图标
+          </div>
+        </div>
+      </div>
+      <footer>
+        🌊 慢一点，海就在眼前 | 东极岛4天3晚 · 自由又慵懒的夏天前奏
+      </footer>
+    </div>
+  </body>
+</html>
